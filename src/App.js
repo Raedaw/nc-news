@@ -1,7 +1,7 @@
 import "./App.css";
 import Nav from "./Components/Nav";
 import Articles from "./Components/Articles/Articles";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
 
 function App() {
   return (
@@ -9,7 +9,8 @@ function App() {
       <div className="App">
         <Nav />
         <Routes>
-          <Route path="/articles/topics/:topic_slug" />
+          <Route path="/articles/?topic=:topic_slug" />
+          console.log(useParams())
         </Routes>
 
         <Articles />

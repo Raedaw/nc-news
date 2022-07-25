@@ -1,61 +1,63 @@
 //import Select from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import Dropdown from 'react-bootstrap/Dropdown';
+// import DropdownButton from 'react-bootstrap/DropdownButton';
+// import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from "react-router-dom";
 
-const TopicsDropdown = () => {
-    let navigate = useNavigate
+const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
+    
+    const [topics, setTopics] = useState([]); 
 
-    const [selectedTopic, setSelectedTopic] = useState([]); 
+    let navigate = useNavigate();
 
-   const topics = ["coding", "football"," cooking"]
+  
     useEffect(() => {
       axios
-        .get(`http://https://rachels-nc-notes.herokuapp.com/api/articles?topic=${selectedTopic}`)
+        .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
         .then((res) => {
-          console.log(res)
+            console.log(selectedTopic)
+          setTopics(res.data.topics);
         });
     }, [selectedTopic]);
+  
+    function handleChange(e) {
+       if (e.target.value !== null) {
+        setSelectedTopic(e.target.value);
+        let path = `/articles/?topic=${e.target.value}`;
+        navigate(path)
+      }
+      if (e.target.value === null) {
+        setSelectedTopic(null);
+      }
 
-    function handleClick (e) {
-   setSelectedTopic(e.target.value)
-   const path =
-   selectedTopic === 'all' ? '/' : `/articles/topics/${selectedTopic}`;
- navigate(path);
-      };
-
+    }
+  
+    
     return (
 <div className="selectTopic">
-<DropdownButton
-          id="topics-dropdown"
-          size="m"
-          variant="info"
-          title={selectedTopic}
+<form className="topic-dropdown">
+      <label id="topic_label">
+        Filter by topic:
+        <select
+          name="topic"
+          id="topics"
+          className="dropdown_box"
+          onChange={handleChange}
         >
-          <Dropdown.ItemText>Select a topic:</Dropdown.ItemText>
-          <Dropdown.Item
-            as="button"
-            onClick={handleClick}
-            key="all"
-            value="all"
-          >
-            ALL
-          </Dropdown.Item>
+          <option>all</option>
+
           {topics.map((topic) => {
             return (
-              <Dropdown.Item
-                as="button"
-                key={topic}
-                value={topic}
-                onClick={handleClick}
-              >
-                {topic}
-              </Dropdown.Item>
+              <option type="reset" value={`${topic.slug}`}>
+                {topic.slug}
+              </option>
             );
           })}
-        </DropdownButton>
+        </select>
+       
+      </label>
+    </form>
 </div>
       );
 

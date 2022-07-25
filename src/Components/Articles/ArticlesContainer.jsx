@@ -3,19 +3,24 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const ArticlesContainer = () => {
+const ArticlesContainer = ({selectedTopic}) => {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(undefined);
 
-   let {topic} = useParams()
-   console.log(topic)
+
 
 useEffect(()=>{
     setIsLoading(true)
 
+    let topic = ""
 
-    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles`).then((response)=>{
+if (selectedTopic) {
+    topic = `?topic=${selectedTopic}`
+}
+
+console.log(selectedTopic)
+    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles${topic}`).then((response)=>{
         setErrorMessage(undefined);
         setIsLoading(false);
         setArticles(response.data.articles)
@@ -23,7 +28,7 @@ useEffect(()=>{
         setIsLoading(false);
         setErrorMessage("Oops, this isn't working right now. Please try again later")        
     })
-}, [errorMessage]);
+}, [errorMessage, selectedTopic]);
 
 
 
