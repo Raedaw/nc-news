@@ -17,7 +17,7 @@ useEffect(()=>{
         setArticles(response.data.articles)
     }).catch((err)=>{
         setIsLoading(false);
-        setErrorMessage(err.message)        
+        setErrorMessage("Oops, this isn't working right now. Please try again later")        
     })
 }, [errorMessage]);
 
@@ -25,7 +25,7 @@ useEffect(()=>{
 
 return (     
  <section className="articles-container">
-    {errorMessage ? <p>Error: {errorMessage}</p> : ""}
+    {errorMessage ? <p>{errorMessage}</p> : ""}
     {isLoading ? <p>Loading...</p> : ""}
 
     
