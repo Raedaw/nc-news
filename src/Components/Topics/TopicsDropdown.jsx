@@ -44,6 +44,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
           id="topics"
           className="dropdown_box"
           onChange={handleChange}
+          value={selectedTopic}
         >
           <option>all</option>
 

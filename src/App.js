@@ -1,7 +1,13 @@
 import "./App.css";
 import Nav from "./Components/Nav";
 import Articles from "./Components/Articles/Articles";
-import { BrowserRouter, Routes, Route, useParams } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  // useParams,
+  // useSearchParams,
+} from "react-router-dom";
 
 function App() {
   return (
@@ -9,8 +15,7 @@ function App() {
       <div className="App">
         <Nav />
         <Routes>
-          <Route path="/articles/?topic=:topic_slug" />
-          console.log(useParams())
+          <Route path="/articles" />
         </Routes>
 
         <Articles />

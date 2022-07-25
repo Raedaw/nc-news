@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const ArticlesContainer = ({selectedTopic}) => {
+const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, setSearchParams}) => {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(undefined);
@@ -13,11 +13,15 @@ const ArticlesContainer = ({selectedTopic}) => {
 useEffect(()=>{
     setIsLoading(true)
 
-    let topic = ""
+    let topic = "" // setSelectedTopic using dropdown selection?
 
+if (searchParams.get("topic")) {
+    setSelectedTopic(searchParams.get("topic"))
+}
 if (selectedTopic) {
     topic = `?topic=${selectedTopic}`
 }
+setArticles([])
 
 console.log(selectedTopic)
     axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles${topic}`).then((response)=>{
@@ -28,7 +32,7 @@ console.log(selectedTopic)
         setIsLoading(false);
         setErrorMessage("Oops, this isn't working right now. Please try again later")        
     })
-}, [errorMessage, selectedTopic]);
+}, [selectedTopic]);
 
 
 

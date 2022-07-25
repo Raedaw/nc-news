@@ -10,7 +10,7 @@ const ArticleCard = ({key, title, topic, date, comment_count, votes, author}) =>
     // vote count
     return ( 
 
-            <section className="article-card">
+            <section className="article-card" key={key}>
             <h3>{title}</h3>
             
             <span> {`posted to ${topic} at ${new Date(date)} by `}<b>{author}</b></span>
