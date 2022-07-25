@@ -39,6 +39,7 @@ topic={article.topic}
 date={article.created_at}
 comment_count={article.comment_count}
 votes={article.votes}
+author={article.author}
 />) 
     })}
    

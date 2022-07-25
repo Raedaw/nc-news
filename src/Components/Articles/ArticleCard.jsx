@@ -1,4 +1,4 @@
-const ArticleCard = ({key, title, topic, date, comment_count, votes}) => {
+const ArticleCard = ({key, title, topic, date, comment_count, votes, author}) => {
 
 
 
@@ -12,7 +12,8 @@ const ArticleCard = ({key, title, topic, date, comment_count, votes}) => {
 
             <section className="article-card">
             <h3>{title}</h3>
-            <p> {`posted to ${topic} at ${new Date(date)} `}</p>
+            
+            <span> {`posted to ${topic} at ${new Date(date)} by `}<b>{author}</b></span>
             <ul className="article-card-li">
                 <li>{comment_count} comments</li>
                 <li>{votes} votes</li>
