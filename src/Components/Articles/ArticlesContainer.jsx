@@ -42,19 +42,25 @@ return (
     {isLoading ? <p>Loading...</p> : ""}
 
     
+<ul>
+
+
 
    {articles.map((article)=>{
     return (
-<ArticleCard
-key={article.article_id }
+        <li key={article.article_id}><ArticleCard
+article_id={article.article_id }
 title={article.title}
 topic={article.topic}
 date={article.created_at}
 comment_count={article.comment_count}
 votes={article.votes}
 author={article.author}
-/>) 
+/></li>
+) 
     })}
+    
+    </ul>
    
     </section> 
     )

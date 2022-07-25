@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
     
-    const [topics, setTopics] = useState([]); 
+    const [topicsOptions, setTopicsOptions] = useState([]); 
 
     let navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
         .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
         .then((res) => {
             console.log(selectedTopic)
-          setTopics(res.data.topics);
+          setTopicsOptions(res.data.topics);
         });
     }, [selectedTopic]);
   
@@ -48,7 +48,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
         >
           <option>all</option>
 
-          {topics.map((topic) => {
+          {topicsOptions.map((topic) => {
             return (
               <option type="reset" value={`${topic.slug}`}>
                 {topic.slug}

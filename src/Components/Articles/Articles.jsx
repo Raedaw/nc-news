@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 const Articles = () => {
 
-    const [selectedTopic, setSelectedTopic] = useState(null);
+    const [selectedTopic, setSelectedTopic] = useState("");
      let [searchParams, setSearchParams] = useSearchParams();
      //searchParams.get("topic");
    
