@@ -9,11 +9,17 @@ const ArticleCard = ({article_id, title, topic, date, comment_count, votes, auth
             
             <span> {`posted to `}<b>{topic}</b> {`at ${new Date(date)} by `}<b>{author}</b></span>
             <ul>
-                <li>{comment_count} comments</li>
-                <li>{votes} votes</li>
+                <li><b>{comment_count}</b> comments</li>
+                <li><b>{votes}</b> votes</li>
             </ul>
             </section>
     )
 }
  
 export default ArticleCard; 
+
+// links for: 
+// title - go to single article page
+// topic - go to filter by topic
+// author - go to author profile
+// comment count - jumps to comments
