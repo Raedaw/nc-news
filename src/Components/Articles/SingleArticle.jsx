@@ -2,12 +2,15 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../styles/SingleArticle.module.css";
+import Votes from "../Votes";
 
 const SingleArticle = () => {
 const [article, setArticle] = useState({})
 const [isLoading, setIsLoading] = useState(true);
 const {article_id} = useParams()
 const [errorMessage, setErrorMessage] = useState(undefined);
+
+const [vote, setVote] = useState(0)
 
 useEffect(()=>{
     setIsLoading(true);
@@ -22,6 +25,8 @@ useEffect(()=>{
         console.log(err)
     })
 }, [article_id])
+
+
 
 if (isLoading){
     return (
@@ -41,7 +46,14 @@ return (
         <p>{`at ${new Date(article.created_at)}`}</p>
         <p>{article.body}</p> 
         <div className={styles.comments}>
-        <p>{article.votes} votes</p>
+
+        <Votes 
+        vote={vote}
+        setVote={setVote}
+        article={article}
+        article_id={article_id}
+        />
+        
         <p>{article.comment_count} comments</p>
         </div> 
     </section>);
