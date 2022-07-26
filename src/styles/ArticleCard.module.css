@@ -1,0 +1,12 @@
+.article_card {
+    border-radius: 25px;
+    border: 2px solid #8ecae6;
+    padding: 8px;
+margin-bottom: 8px;
+}
+
+
+ul {
+list-style-type: none;
+}
+

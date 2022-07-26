@@ -1,0 +1,14 @@
+.articles_container {
+  padding-right: 2rem;
+  padding-top: 1rem;
+}
+
+.article_card {
+    list-style-type: none;
+}
+
+.article_card {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+}

@@ -1,25 +1,25 @@
-const ArticleCard = ({key, title, topic, date, comment_count, votes, author}) => {
+import styles from "../../styles/ArticleCard.module.css"
 
+const ArticleCard = ({article_id, title, topic, date, comment_count, votes, author}) => {
 
-
-    // title
-    //image?
-    // topic
-    // date posted
-    // number of comments
-    // vote count
     return ( 
 
-            <section className="article-card">
+            <section className={styles.article_card} key={article_id}>
             <h3>{title}</h3>
             
-            <span> {`posted to ${topic} at ${new Date(date)} by `}<b>{author}</b></span>
-            <ul className="article-card-li">
-                <li>{comment_count} comments</li>
-                <li>{votes} votes</li>
+            <span> {`posted to `}<b>{topic}</b> {`at ${new Date(date)} by `}<b>{author}</b></span>
+            <ul>
+                <li><b>{comment_count}</b> comments</li>
+                <li><b>{votes}</b> votes</li>
             </ul>
             </section>
     )
 }
  
 export default ArticleCard; 
+
+// links for: 
+// title - go to single article page
+// topic - go to filter by topic
+// author - go to author profile
+// comment count - jumps to comments
