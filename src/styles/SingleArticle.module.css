@@ -1,0 +1,14 @@
+.singleArticle {
+    padding: 1rem;
+    }
+
+.title {
+    padding-bottom: 5px;
+}
+.comments {
+    display: flex;
+    justify-content: space-between;
+}
+p {
+    padding: 2px
+}
