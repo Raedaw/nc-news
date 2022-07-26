@@ -16,13 +16,17 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
       axios
         .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
         .then((res) => {
-            console.log(selectedTopic)
+            //console.log(selectedTopic)
           setTopicsOptions(res.data.topics);
         });
     }, [selectedTopic]);
   
     function handleChange(e) {
-       if (e.target.value !== null) {
+      if (e.target.value === "all"){
+        setSelectedTopic("")
+        navigate("/articles")
+      }
+       if (e.target.value !== null && e.target.value !== "all") {
         setSelectedTopic(e.target.value);
         let path = `/articles/?topic=${e.target.value}`;
         navigate(path)
@@ -35,10 +39,10 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
   
     
     return (
-<div className="selectTopic">
+
 <form className="topic-dropdown">
       <label id="topic_label">
-        Filter by topic:
+        topic:
         <select
           name="topic"
           id="topics"
@@ -59,7 +63,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
        
       </label>
     </form>
-</div>
+
       );
 
 }

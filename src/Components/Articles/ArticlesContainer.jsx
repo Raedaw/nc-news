@@ -2,6 +2,8 @@ import ArticleCard from "./ArticleCard"
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import styles from "../../styles/ArticlesContainer.module.css"
+
 
 const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, setSearchParams}) => {
     const [articles, setArticles] = useState([]);
@@ -15,15 +17,19 @@ useEffect(()=>{
 
     let topic = "" // setSelectedTopic using dropdown selection?
 
+
+
 if (searchParams.get("topic")) {
     setSelectedTopic(searchParams.get("topic"))
 }
+
 if (selectedTopic) {
     topic = `?topic=${selectedTopic}`
 }
+
 setArticles([])
 
-console.log(selectedTopic)
+
     axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles${topic}`).then((response)=>{
         setErrorMessage(undefined);
         setIsLoading(false);
@@ -37,7 +43,7 @@ console.log(selectedTopic)
 
 
 return (     
- <section className="articles-container">
+ <section className={styles.articles_container}>
     {errorMessage ? <p>{errorMessage}</p> : ""}
     {isLoading ? <p>Loading...</p> : ""}
 
@@ -48,7 +54,7 @@ return (
 
    {articles.map((article)=>{
     return (
-        <li key={article.article_id}><ArticleCard
+        <li key={article.article_id} className={styles.article_card}><ArticleCard
 article_id={article.article_id }
 title={article.title}
 topic={article.topic}

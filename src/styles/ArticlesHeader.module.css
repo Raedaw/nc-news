@@ -1,0 +1,10 @@
+.articles_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 0%;
+    background-color: #219ebc;
+    color: antiquewhite;
+    padding: 0.5rem;
+}
+
