@@ -29,26 +29,27 @@ useEffect(()=>{
     function handleLike (){
         checkLogin()
         setHasDownvoted(false)
-        setVote(1)
+        setVote((currVotes)=>currVotes+1)
         setHasUpvoted(true)
         }
         
         function handleUnlike (){
             checkLogin()
-            setVote(0)
+            setVote((currVotes)=>currVotes-1)
             setHasUpvoted(false)
             }
         
         function handleDislike() {
             checkLogin()
             setHasUpvoted(false)
-            setVote(-1)
+            setVote((currVotes)=>currVotes-1)
             setHasDownvoted(true)
         }
         
         function handleUndislike() {
             checkLogin()
-            setVote(0)
+            setVote((currVotes)=>currVotes+1)
+            console.log(vote)
             setHasDownvoted(false)
         }
 
@@ -57,7 +58,7 @@ useEffect(()=>{
 
  return (
     <section>
-    <span className="votes">{article.votes+vote} votes 
+    <span className="votes">{article.votes} votes 
 {hasDownvoted ? <button id="undislike" onClick={handleUndislike}>👎</button> : <button id="dislike" onClick={handleDislike}>👎</button>}
 
 {hasUpvoted ? <button id="unlike" onClick={handleUnlike}>👍</button> : <button id="like" onClick={handleLike}>👍</button>}</span> 
