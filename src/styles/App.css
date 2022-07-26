@@ -3,12 +3,33 @@
 }
 
 .nav {
+
   list-style-type: none;
   background-color: #023047;
   color: #ffb703;
-padding: 0.5rem;
-padding-top: 1rem;
-}
+  padding: 0.5rem;
+  padding-top: 1rem;
+  }
+
+  .nav a{
+      color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+  }
+  
+  
+  .nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  .nav img {
+     width: 2rem;
+    height: 2rem; 
+    border-radius: 50%;
+   border: 2px solid #ffb703;
+  }
+ 
 
 
 
