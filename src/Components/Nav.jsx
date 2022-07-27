@@ -24,9 +24,8 @@ function handleLogin(){
         <header>
            <ul className="nav">
             <li><Link to="/" class={styles.nav}><h1>NC news</h1></Link></li>
-            
             <li>{user ? <div><li><img src={user.avatar_url} alt="your avatar" /><p>{user.username}</p></li><button onClick={handleLogout}>Logout</button></div> : <button onClick={handleLogin}>Login</button>}</li>
-            
+
            </ul>
         </header>
      );
