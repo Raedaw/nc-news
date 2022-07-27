@@ -10,14 +10,14 @@ const [isLoading, setIsLoading] = useState(true);
 const {article_id} = useParams()
 const [errorMessage, setErrorMessage] = useState(undefined);
 
-const [vote, setVote] = useState(0)
+
 
 useEffect(()=>{
     setIsLoading(true);
     setArticle({})
     axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`).then((res)=>{
-        setErrorMessage(undefined); 
-        setIsLoading(false);
+        setErrorMessage(undefined);
+               setIsLoading(false);
         setArticle(res.data.article)
     }).catch((err)=>{
         setIsLoading(false);
@@ -25,6 +25,10 @@ useEffect(()=>{
         console.log(err)
     })
 }, [article_id])
+
+// useEffect(()=>{
+//    setArticleVotes(article.votes)
+// }, [articleVotes, article])
 
 
 
@@ -48,11 +52,9 @@ return (
         <div className={styles.comments}>
 
         <Votes 
-        vote={vote}
-        setVote={setVote}
-        article={article}
+                article={article}
         article_id={article_id}
-        />
+            />
         
         <p>{article.comment_count} comments</p>
         </div> 
