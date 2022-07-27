@@ -18,15 +18,6 @@ setArticleVotes(article.votes)
 }, [])
 
 
-// useEffect(()=>{
-//     setErrorMessage(undefined);
-//     axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : vote}).then((res)=>{
-//         console.log(vote, "patched votes", res.data.article.votes)
-//     }).catch((err)=>{
-//         setErrorMessage("Oops, this isn't working right now. Please try again later") 
-//     })
-//      }, [vote, article_id])
-
      function checkLogin() {
         if (!user){
             setLoginMsg("You must be logged in to vote!")
@@ -37,14 +28,19 @@ setArticleVotes(article.votes)
 
     function handleLike (){
         checkLogin()
-        setArticleVotes((currVotes)=>currVotes+1) 
+        if (!hasDownvoted){
+            setArticleVotes((currVotes)=>currVotes+1) 
+            setHasUpvoted(true)
+            axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : 1}).then((res)=>{
+           })
+        }
+        if (hasDownvoted){
+        setArticleVotes((currVotes)=>currVotes+2)
         setHasDownvoted(false)
         setHasUpvoted(true)
-        axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : 1}).then((res)=>{
-             console.log(vote, "patched votes", res.data.article.votes)
-        
-       
-    })
+        axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : 2}).then((res)=>{
+           })     
+        }
         }
         
     function handleUnlike (){
@@ -52,27 +48,34 @@ setArticleVotes(article.votes)
             setArticleVotes((currVotes)=>currVotes-1)
             setHasUpvoted(false)
             axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : -1}).then((res)=>{
-            console.log(vote, "patched votes", res.data.article.votes)
-                       })}
+            })}
         
         function handleDislike() {
             checkLogin()
-            setHasUpvoted(false)
-            setVote(-1)
+            
+            if (!hasUpvoted) {
+            setArticleVotes((currVotes)=>currVotes-1)
             setHasDownvoted(true)
+            axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : -1}).then((res)=>{
+            })    
+            }
+            if (hasUpvoted) {
+                setArticleVotes((currVotes)=>currVotes-2)
+                setHasDownvoted(true)
+                setHasUpvoted(false)
+                axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : -2}).then((res)=>{
+                })      
+            }
         }
         
         function handleUndislike() {
             checkLogin()
-            setVote(1)
-            //console.log(vote)
             setHasDownvoted(false)
+            setArticleVotes((currVotes)=>currVotes+1)
+            axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : 1}).then((res)=>{
+            })
+
         }
-
-        // console.log(hasUpvoted, "HAS UP")
-        // console.log(hasDownvoted, "HAS DOWN")
-        // console.log(vote)
-
 
  return (
     <section>
