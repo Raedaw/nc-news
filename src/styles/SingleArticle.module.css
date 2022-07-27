@@ -12,3 +12,7 @@
 p {
     padding: 2px
 }
+
+#dislike {
+    border: 1px solid red;
+}

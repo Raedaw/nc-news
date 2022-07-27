@@ -10,8 +10,6 @@ const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, setSe
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(undefined);
 
-
-
 useEffect(()=>{
     setIsLoading(true)
 
@@ -62,6 +60,7 @@ date={article.created_at}
 comment_count={article.comment_count}
 votes={article.votes}
 author={article.author}
+
 /></li>
 ) 
     })}
