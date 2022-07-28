@@ -10,6 +10,7 @@ console.log(e.target.value)
     <textarea id="comment-textarea" placeholder="Add your comment..."></textarea>
     <br/>
     <input type="submit" value="Comment"/>
+    <br/>
   </form> 
 </section>
   )
