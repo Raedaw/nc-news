@@ -3,15 +3,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../styles/SingleArticle.module.css";
 import CommentsSection from "../Comments/CommentsSection";
-
+import AddComment from "../Comments/AddComment";
 import Votes from "../Votes";
-import AddComment from "./AddComment";
+
 
 const SingleArticle = () => {
 const [article, setArticle] = useState({})
 const [isLoading, setIsLoading] = useState(true);
 const {article_id} = useParams()
 const [errorMessage, setErrorMessage] = useState(undefined);
+// const [newComment, setNewComment] = useState("")
 
 
 
@@ -61,8 +62,16 @@ return (
         
         <p>{article.comment_count} comments</p>
         </div> 
-        <AddComment />
-        <CommentsSection article={article}/>
+        {/* <AddComment 
+        newComment={newComment}
+        setNewComment={setNewComment}
+        article_id={article_id}
+        /> */}
+        <CommentsSection 
+        article={article}
+        // newComment={newComment}
+        // setNewComment={setNewComment}
+        />
         </section>
        </article> 
 );

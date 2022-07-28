@@ -3,7 +3,7 @@ import styles from "../../styles/CommentsSection.module.css"
 const CommentCard = ({comment}) => {
     return ( 
     
-    <section class={styles.comment_card}>
+    <section class={styles.comment_card} key={comment.comment_id}>
         <h4>{comment.author}:</h4>
         <p>{comment.body}</p>
         <ul class={styles.list}>
