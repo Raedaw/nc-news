@@ -27,7 +27,19 @@ useEffect(()=>{
 
 
 if (!article) return <p></p>
-    
+if (isLoading) {
+    return (
+    <p>Loading comments...</p>    
+    )
+} else if (comments.length===0){
+    return (
+        <p>No comments yet!</p>    
+        )
+} else if (errorMessage){
+    return (
+        <p>Something went wrong, please try again later!</p> 
+    )
+}    
 return ( 
 <section id="comments">
     <h2> Comments: </h2>
