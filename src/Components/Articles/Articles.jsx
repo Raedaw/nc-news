@@ -3,6 +3,7 @@ import TopicsDropdown from "../Topics/TopicsDropdown";
 import { useEffect, useState } from "react";
  import { useSearchParams } from "react-router-dom";
 import styles from "../../styles/ArticlesHeader.module.css"
+import SortByDropdown from "./SortByDropdown";
  //current topic h2
 // filter topic
 // sort by  
@@ -10,7 +11,9 @@ import styles from "../../styles/ArticlesHeader.module.css"
 const Articles = () => {
 
     const [selectedTopic, setSelectedTopic] = useState("");
+    const [selectedOrder, setSelectedOrder] = useState("")
      let [searchParams, setSearchParams] = useSearchParams();
+
      //searchParams.get("topic");
    
 
@@ -22,6 +25,9 @@ const Articles = () => {
 setSelectedTopic={setSelectedTopic}
 selectedTopic={selectedTopic}
 />
+<SortByDropdown
+selectedOrder={selectedOrder}
+setSelectedOrder={setSelectedOrder}/>
     </section>
 
            <ArticlesContainer
