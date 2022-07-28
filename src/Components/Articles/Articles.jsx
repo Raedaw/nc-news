@@ -11,10 +11,20 @@ import SortByDropdown from "./SortByDropdown";
 const Articles = () => {
 
     const [selectedTopic, setSelectedTopic] = useState("");
+    const [selectedSort, setSelectedSort] = useState("")
     const [selectedOrder, setSelectedOrder] = useState("")
      let [searchParams, setSearchParams] = useSearchParams();
+     
+useEffect(()=>{
+    const sort = searchParams.get("sort_by");
+    const order = searchParams.get("order");
+      
+    if (sort) setSelectedSort(sort)
+    if (order) setSelectedOrder(order)
+}, [])
+  
 
-     //searchParams.get("topic");
+
    
 
     return ( 
@@ -26,8 +36,13 @@ setSelectedTopic={setSelectedTopic}
 selectedTopic={selectedTopic}
 />
 <SortByDropdown
+setSelectedTopic={setSelectedTopic}
+selectedTopic={selectedTopic}
+selectedSort={selectedSort}
+setSelectedSort={setSelectedSort}
 selectedOrder={selectedOrder}
 setSelectedOrder={setSelectedOrder}/>
+
     </section>
 
            <ArticlesContainer
@@ -35,6 +50,8 @@ setSelectedOrder={setSelectedOrder}/>
            setSelectedTopic={setSelectedTopic}
 searchParams={searchParams}
 setSearchParams={setSearchParams}
+selectedSort={selectedSort}
+selectedOrder={selectedOrder}
            />
 </section>
  

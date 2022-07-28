@@ -1,66 +1,53 @@
-//import Select from "@mui/material";
+
 import axios from "axios";
 import { useEffect, useState } from "react";
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-// import Dropdown from 'react-bootstrap/Dropdown';
+
 import { useNavigate } from "react-router-dom";
 
-const SortByDropdown = ({selectedSortBy, setSelectedSortBy}) => {
-    
-    const [sortByOptions, setSortByOptions] = useState([]); 
+const SortByDropdown = ({selectedSort, setSelectedSort, selectedOrder, setSelectedOrder, selectedTopic}) => {
 
     let navigate = useNavigate();
-
-  
-  
-    setSortByOptions([
-        "created_at",
-        "votes",
-        "comment_count",
-      ]);
+    
      
+    
     function handleChange(e) {
-      if (e.target.value === "all"){
-        setSelectedSortBy("")
-        navigate("/articles")
+      let value = e.target.value.split("&")
+      
+      setSelectedSort(value[0])
+      if (value.length > 1){
+        setSelectedOrder(value[1].slice(6))
       }
-       if (e.target.value !== null && e.target.value !== "all") {
-        setSelectedSortBy(e.target.value);
-        let path = `/articles/?sortBy=${e.target.value}`;
+      let path = "/articles/?"
+
+      if (selectedTopic){
+        path += `topic=${selectedTopic}&`
+      }
+      
+        path += `sort_by=${e.target.value}`;
         navigate(path)
       }
-      if (e.target.value === null) {
-        setSelectedSortBy(null);
-      }
-    }
-  
     
     return (
 
 <form className="sortBy-dropdown">
       <label id="sortBy_label">
-        sortBy:
-        <select
+        sort by:
+          <select
           name="sortBy"
           id="sortBys"
           className="dropdown_box"
           onChange={handleChange}
-          value={selectedSortBy}
+          value={selectedOrder? `${selectedSort}&order=${selectedOrder}`: selectedSort}
         >
-          <option>all</option>
-
-          {sortBysOptions.map((sortBy) => {
-            return (
-              <option type="reset" value={`${sortBy.slug}`}>
-                {sortBy.slug}
-              </option>
-            );
-          })}
+          <option value="created_at">Newest</option>
+          <option value="created_at&order=ASC">Oldest</option>
+          <option value="votes">Most Voted</option>
+          <option value="votes&order=ASC">Least Voted</option>
+          <option value="comment_count">Most Commented</option>
+          <option value="comment_count&order=ASC">Least Commented</option>
         </select>
-       
       </label>
     </form>
-
       );
 
 }
