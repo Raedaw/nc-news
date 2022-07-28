@@ -8,26 +8,20 @@ function Votes({article, article_id}){
     const [hasUpvoted, setHasUpvoted] = useState(false)
 const [hasDownvoted, setHasDownvoted] = useState(false)
 const [loginMsg, setLoginMsg] = useState(null)
+const [loginPrompt, setLoginPrompt] = useState(null)
 const {user} = useContext(UserContext);
 const [errorMessage, setErrorMessage] = useState(undefined);
-const [vote, setVote] = useState(0)
+//const [vote, setVote] = useState(0)
 const [articleVotes, setArticleVotes] = useState(0)
 
 useEffect(()=>{
+    if (!user){setLoginMsg("You must be logged in to vote!")}
+    if (user){setLoginMsg(null); setLoginPrompt(null)}
 setArticleVotes(article.votes)
-}, [])
-
-
-     function checkLogin() {
-        if (!user){
-            setLoginMsg("You must be logged in to vote!")
-        } else {
-            setLoginMsg(null)
-        }
-     }
+}, [user])
 
     function handleLike (){
-        checkLogin()
+        if (loginMsg) {setLoginPrompt(loginMsg); return }
         if (!hasDownvoted){
             setArticleVotes((currVotes)=>currVotes+1) 
             setHasUpvoted(true)
@@ -44,15 +38,14 @@ setArticleVotes(article.votes)
         }
         
     function handleUnlike (){
-            checkLogin()
+        if (loginMsg) {setLoginPrompt(loginMsg); return }
             setArticleVotes((currVotes)=>currVotes-1)
             setHasUpvoted(false)
             axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : -1}).then((res)=>{
             })}
         
         function handleDislike() {
-            checkLogin()
-            
+            if (loginMsg) {setLoginPrompt(loginMsg); return }
             if (!hasUpvoted) {
             setArticleVotes((currVotes)=>currVotes-1)
             setHasDownvoted(true)
@@ -69,7 +62,7 @@ setArticleVotes(article.votes)
         }
         
         function handleUndislike() {
-            checkLogin()
+            if (loginMsg) {setLoginPrompt(loginMsg); return }
             setHasDownvoted(false)
             setArticleVotes((currVotes)=>currVotes+1)
             axios.patch(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}`, { inc_votes : 1}).then((res)=>{
@@ -84,7 +77,7 @@ setArticleVotes(article.votes)
 
 {hasUpvoted ? <button id="like-selected" onClick={handleUnlike}>👍</button> : <button id="like" onClick={handleLike}>👍</button>}</span>
 <p>{errorMessage}</p> 
-<p>{loginMsg}</p>   
+ <p>{loginPrompt}</p>  
     </section>
  )
 

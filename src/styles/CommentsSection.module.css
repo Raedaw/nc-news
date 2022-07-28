@@ -1,0 +1,10 @@
+.comment_card {
+    border-radius: 25px;
+    border: 2px solid #8ecae6;
+    padding: 8px;
+    margin-bottom: 8px;
+}
+
+.list {
+    display: inline
+}
