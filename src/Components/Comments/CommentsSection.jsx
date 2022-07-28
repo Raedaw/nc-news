@@ -15,9 +15,7 @@ const [errorMessage, setErrorMessage] = useState(undefined);
 const [errorMessageAddComment, setErrorMessageAddComment] = useState(undefined);
 const [commentToAdd, setCommentToAdd] = useState({})
 const {user} = useContext(UserContext);
-// setComments((currComments)=>{
-//   return [newCommentValue, ...currComments]
-// })
+
 
 useEffect(()=>{
     setIsLoading(true);
@@ -84,19 +82,7 @@ return (
 
     <h2> Comments: </h2>
    {comments.map((comment)=>{
-    // if (!comment.comment_id){
-    //     return (
-    //     <section className="new-comment-card">
-    //     <h4>{user.username}:</h4>
-    //     <p>{comment.body}</p>
-    //     <ul class={styles.list}>
-    //         <li>{`posted just now`}</li>
-    //         <li> <b>{0}</b> votes</li>
-    //     </ul>
-    // </section>
-    //     )
-    // }
-    
+
     return (
         <CommentCard
         key={comment.comment_id}
