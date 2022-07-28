@@ -8,3 +8,7 @@
 .list {
     display: inline
 }
+
+.warning {
+    color: red;
+}
