@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../styles/SingleArticle.module.css";
 import Votes from "../Votes";
+import AddComment from "./AddComment";
 
 const SingleArticle = () => {
 const [article, setArticle] = useState({})
@@ -58,6 +59,7 @@ return (
         
         <p>{article.comment_count} comments</p>
         </div> 
+        <AddComment />
     </section>);
 }
 }
