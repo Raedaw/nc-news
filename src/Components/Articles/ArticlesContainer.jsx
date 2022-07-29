@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 import styles from "../../styles/ArticlesContainer.module.css"
+import { getArticles } from "../utils/apiPaths";
 
 
 const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, selectedSort, selectedOrder, params}) => {
@@ -16,11 +17,11 @@ useEffect(()=>{
 setArticles([])
 console.log({params})
 
-    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles`, {params}).then((response)=>{
-    console.log(response.data)    
-    setErrorMessage(undefined);
+    // axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles`, {params})
+    getArticles(params).then((articles)=>{
+        setErrorMessage(undefined);
         setIsLoading(false);
-        setArticles(response.data.articles)
+        setArticles(articles)
     }).catch((err)=>{
         setIsLoading(false);
         setErrorMessage("Oops, this isn't working right now. Please try again later")        

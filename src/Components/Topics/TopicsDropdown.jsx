@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 // import DropdownButton from 'react-bootstrap/DropdownButton';
 // import Dropdown from 'react-bootstrap/Dropdown';
 import { useNavigate } from "react-router-dom";
+import { getTopics } from "../utils/apiPaths";
 
 const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
     
@@ -11,19 +12,21 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
 
      
     useEffect(() => {
-      axios
-        .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
-        .then((res) => {
-            //console.log(selectedTopic)
-          setTopicsOptions(res.data.topics);
+        getTopics().then((topics) => {
+           setTopicsOptions(topics);
         });
     }, [selectedTopic]);
   
     
   function handleChange(e){
     console.log(e.target.value)
-    setSelectedTopic(e.target.value)
-    console.log(selectedTopic)
+    if (e.target.value === "all"){
+      setSelectedTopic("")
+    } else {
+       setSelectedTopic(e.target.value)
+    console.log(selectedTopic, "<<<<<<selected topic") //logging empty
+    }
+   
     }
   
     

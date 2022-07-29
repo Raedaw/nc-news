@@ -5,6 +5,7 @@ import styles from "../../styles/CommentsSection.module.css"
 import CommentCard from "./CommentCard";
 import { UserContext } from "../../Contexts/UserContext";
 import { useContext } from "react";
+import { getComments } from "../utils/apiPaths";
 
 
 const CommentsSection = ({article}) => {
@@ -20,10 +21,11 @@ const {user} = useContext(UserContext);
 useEffect(()=>{
     setIsLoading(true);
     setComments([])
-    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles/${article_id}/comments`).then((res)=>{
+    getComments(article_id)
+    .then((comments)=>{
         setErrorMessage(undefined); 
         setIsLoading(false);
-        setComments(res.data.comments)
+        setComments(comments)
     }).catch((err)=>{
         setIsLoading(false);
         setErrorMessage(err.response.data.msg)

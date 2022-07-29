@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 const Articles = () => {
 
     const [selectedTopic, setSelectedTopic] = useState("");
-    const [selectedSort, setSelectedSort] = useState("")
-    const [selectedOrder, setSelectedOrder] = useState("")
+    const [selectedSort, setSelectedSort] = useState("created_at")
+    const [selectedOrder, setSelectedOrder] = useState("DESC")
      let [searchParams, setSearchParams] = useSearchParams();
 
 const params ={}
@@ -22,6 +22,7 @@ let navigate = useNavigate();
 // - altering dropdown boxes based on url searchParams
 // - altering url based on dropdown selections
 // - when no params are selected
+// can i do it without the asc/desc buttons eg sort by newest, oldest
  
 useEffect(()=>{  
  if (selectedTopic) params.topic = selectedTopic
@@ -39,7 +40,7 @@ useEffect(()=>{
     if (topic) setSelectedTopic(topic)
     if (sort) setSelectedSort(sort) 
     if (order) setSelectedOrder(order)
- },[])
+ }, [])
   
  
 
