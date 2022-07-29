@@ -13,8 +13,10 @@ const [isLoading, setIsLoading] = useState(true);
 const {article_id} = useParams()
 const [errorMessage, setErrorMessage] = useState(undefined);
 const [errorMessageAddComment, setErrorMessageAddComment] = useState(undefined);
+const [errorMessageDeleteComment, setErrorMessageDeleteComment] = useState(undefined);
 const [commentToAdd, setCommentToAdd] = useState({})
 const {user} = useContext(UserContext);
+const [deletingMessage, setDeletingMessage] = useState(undefined)
 
 
 useEffect(()=>{
@@ -56,6 +58,13 @@ function handleChange(propName, value){
     setCommentToAdd({ username: user.username, [propName]: value, article_id: article_id})
 }
 
+function handleDelete(comment_id) {
+    axios.delete(`https://rachels-nc-notes.herokuapp.com/api/comments/${comment_id}`).catch((err)=>{
+        setErrorMessageDeleteComment(err)
+        
+    })
+}
+
 
 if (!article) return <p></p>
 if (isLoading) {
@@ -84,10 +93,17 @@ return (
    {comments.map((comment)=>{
 
     return (
+        <section>
+                
         <CommentCard
         key={comment.comment_id}
         comment={comment}
+        handleDelete={handleDelete}
+        
         />
+       
+        
+        </section> 
     )
    })}
 </section> );

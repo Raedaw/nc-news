@@ -1,6 +1,9 @@
 import styles from "../../styles/CommentsSection.module.css"
+import { UserContext } from "../../Contexts/UserContext";
+import { useContext } from "react";
 
-const CommentCard = ({comment}) => {
+const CommentCard = ({comment, handleDelete}) => {
+    const {user} = useContext(UserContext);
     return ( 
     
     <section class={styles.comment_card} key={comment.comment_id}>
@@ -9,6 +12,7 @@ const CommentCard = ({comment}) => {
         <ul class={styles.list}>
             <li>{`posted at ${new Date(comment.created_at)}`}</li>
             <li> <b>{comment.votes}</b> votes</li>
+            {user.username === comment.author ? <button onClick={(()=>{handleDelete(comment.comment_id)})}>delete</button> : <></>}
         </ul>
     </section> );
 }
