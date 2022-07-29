@@ -5,49 +5,27 @@ import axios from "axios";
 import styles from "../../styles/ArticlesContainer.module.css"
 
 
-const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, selectedSort, selectedOrder}) => {
+const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, selectedSort, selectedOrder, params}) => {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(undefined);
 
 useEffect(()=>{
     setIsLoading(true)
-    let query = ""
-
-if (searchParams.get("topic")) {
-    setSelectedTopic(searchParams.get("topic"))
-}
-
-if (selectedTopic || selectedSort) {
-query += "?"
-}
-
-if (selectedTopic) {
-    query += `topic=${selectedTopic}`
-}
-if (selectedTopic && selectedSort) {
-    query += "&" 
-}
-if (selectedSort) {
-    query += `sort_by=${selectedSort}`
-}
-if (selectedOrder) {
-    query += `&order=${selectedOrder}`
-}
-
 
 setArticles([])
+console.log({params})
 
-
-    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles${query}`).then((response)=>{
-        setErrorMessage(undefined);
+    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles`, {params}).then((response)=>{
+    console.log(response.data)    
+    setErrorMessage(undefined);
         setIsLoading(false);
         setArticles(response.data.articles)
     }).catch((err)=>{
         setIsLoading(false);
         setErrorMessage("Oops, this isn't working right now. Please try again later")        
     })
-}, [selectedTopic, selectedSort]);
+}, [selectedTopic, selectedSort, selectedOrder, params]);
 
 
 

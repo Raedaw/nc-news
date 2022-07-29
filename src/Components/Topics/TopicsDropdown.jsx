@@ -9,9 +9,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
     
     const [topicsOptions, setTopicsOptions] = useState([]); 
 
-    let navigate = useNavigate();
-
-  
+     
     useEffect(() => {
       axios
         .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
@@ -21,20 +19,11 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
         });
     }, [selectedTopic]);
   
-    function handleChange(e) {
-      if (e.target.value === "all"){
-        setSelectedTopic("")
-        navigate("/articles")
-      }
-       if (e.target.value !== null && e.target.value !== "all") {
-        setSelectedTopic(e.target.value);
-        let path = `/articles/?topic=${e.target.value}`;
-        navigate(path)
-      }
-      if (e.target.value === null) {
-        setSelectedTopic(null);
-      }
-
+    
+  function handleChange(e){
+    console.log(e.target.value)
+    setSelectedTopic(e.target.value)
+    console.log(selectedTopic)
     }
   
     
@@ -50,11 +39,11 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
           onChange={handleChange}
           value={selectedTopic}
         >
-          <option>all</option>
+          <option value="all">all</option>
 
           {topicsOptions.map((topic) => {
             return (
-              <option type="reset" value={`${topic.slug}`}>
+              <option type="reset" key={`${topic.slug}`} value={`${topic.slug}`}>
                 {topic.slug}
               </option>
             );

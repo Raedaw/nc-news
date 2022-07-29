@@ -1,12 +1,10 @@
 import ArticlesContainer from "./ArticlesContainer";
 import TopicsDropdown from "../Topics/TopicsDropdown";
 import { useEffect, useState } from "react";
- import { useSearchParams } from "react-router-dom";
+ import { createSearchParams, Navigate, useSearchParams } from "react-router-dom";
 import styles from "../../styles/ArticlesHeader.module.css"
 import SortByDropdown from "./SortByDropdown";
- //current topic h2
-// filter topic
-// sort by  
+import { useNavigate } from "react-router-dom";
 
 const Articles = () => {
 
@@ -14,18 +12,36 @@ const Articles = () => {
     const [selectedSort, setSelectedSort] = useState("")
     const [selectedOrder, setSelectedOrder] = useState("")
      let [searchParams, setSearchParams] = useSearchParams();
-     
-useEffect(()=>{
+
+const params ={}
+let navigate = useNavigate();
+
+ const goToArticles = ()=> navigate({pathname: '/articles', search: `?${createSearchParams(params)}`})
+    
+// points to consider:
+// - altering dropdown boxes based on url searchParams
+// - altering url based on dropdown selections
+// - when no params are selected
+ 
+useEffect(()=>{  
+ if (selectedTopic) params.topic = selectedTopic
+ if(selectedSort) params.sort_by = selectedSort
+ if (selectedOrder) params.order = selectedOrder
+  console.log(params)
+ goToArticles()
+
+ }, [selectedTopic, selectedSort, selectedOrder])
+
+ useEffect(()=>{ //for extracting params from url
+ const topic = searchParams.get("topic")
     const sort = searchParams.get("sort_by");
     const order = searchParams.get("order");
-      
-    if (sort) setSelectedSort(sort)
+    if (topic) setSelectedTopic(topic)
+    if (sort) setSelectedSort(sort) 
     if (order) setSelectedOrder(order)
-}, [])
+ },[])
   
-
-
-   
+ 
 
     return ( 
 <section className="articles">
@@ -34,6 +50,7 @@ useEffect(()=>{
 <TopicsDropdown 
 setSelectedTopic={setSelectedTopic}
 selectedTopic={selectedTopic}
+// handleChange={handleChange}
 />
 <SortByDropdown
 setSelectedTopic={setSelectedTopic}
@@ -41,7 +58,9 @@ selectedTopic={selectedTopic}
 selectedSort={selectedSort}
 setSelectedSort={setSelectedSort}
 selectedOrder={selectedOrder}
-setSelectedOrder={setSelectedOrder}/>
+setSelectedOrder={setSelectedOrder}
+// handleChange={handleChange}
+/>
 
     </section>
 
@@ -52,6 +71,7 @@ searchParams={searchParams}
 setSearchParams={setSearchParams}
 selectedSort={selectedSort}
 selectedOrder={selectedOrder}
+params={params}
            />
 </section>
  
