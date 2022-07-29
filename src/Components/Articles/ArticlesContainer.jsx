@@ -1,11 +1,12 @@
 import ArticleCard from "./ArticleCard"
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+
 import styles from "../../styles/ArticlesContainer.module.css"
+import { getArticles } from "../utils/apiPaths";
 
 
-const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, setSearchParams}) => {
+const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, selectedSort, selectedOrder, params}) => {
     const [articles, setArticles] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState(undefined);
@@ -13,30 +14,18 @@ const ArticlesContainer = ({selectedTopic, setSelectedTopic, searchParams, setSe
 useEffect(()=>{
     setIsLoading(true)
 
-    let topic = "" // setSelectedTopic using dropdown selection?
-
-
-
-if (searchParams.get("topic")) {
-    setSelectedTopic(searchParams.get("topic"))
-}
-
-if (selectedTopic) {
-    topic = `?topic=${selectedTopic}`
-}
-
 setArticles([])
-
-
-    axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles${topic}`).then((response)=>{
+console.log({params})
+if (params.topic === "all" || params.topic === "null" || params.topic === undefined) delete params.topic;
+    getArticles(params).then((articles)=>{
         setErrorMessage(undefined);
         setIsLoading(false);
-        setArticles(response.data.articles)
+        setArticles(articles)
     }).catch((err)=>{
         setIsLoading(false);
         setErrorMessage("Oops, this isn't working right now. Please try again later")        
     })
-}, [selectedTopic]);
+}, [selectedTopic, selectedSort, selectedOrder, params]);
 
 
 

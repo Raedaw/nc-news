@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../styles/SingleArticle.module.css";
 import CommentsSection from "../Comments/CommentsSection";
-import AddComment from "../Comments/AddComment";
+
 import Votes from "../Votes";
 
 
@@ -12,7 +12,7 @@ const [article, setArticle] = useState({})
 const [isLoading, setIsLoading] = useState(true);
 const {article_id} = useParams()
 const [errorMessage, setErrorMessage] = useState(undefined);
-// const [newComment, setNewComment] = useState("")
+
 
 
 

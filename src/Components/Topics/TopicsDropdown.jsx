@@ -1,43 +1,24 @@
-//import Select from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate } from "react-router-dom";
-
+import { getTopics } from "../utils/apiPaths";
 const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
     
-    const [topicsOptions, setTopicsOptions] = useState([]); 
-
-    let navigate = useNavigate();
-
-  
-    useEffect(() => {
-      axios
-        .get(`https://rachels-nc-notes.herokuapp.com/api/topics`)
-        .then((res) => {
-            //console.log(selectedTopic)
-          setTopicsOptions(res.data.topics);
+  const [topicsOptions, setTopicsOptions] = useState([]); 
+ //get options for the topics dropdown:
+    useEffect(() => { 
+        getTopics().then((topics) => {
+           setTopicsOptions(topics);
         });
     }, [selectedTopic]);
   
-    function handleChange(e) {
-      if (e.target.value === "all"){
-        setSelectedTopic("")
-        navigate("/articles")
-      }
-       if (e.target.value !== null && e.target.value !== "all") {
-        setSelectedTopic(e.target.value);
-        let path = `/articles/?topic=${e.target.value}`;
-        navigate(path)
-      }
-      if (e.target.value === null) {
-        setSelectedTopic(null);
-      }
-
+    
+  function handleChange(e){
+    // if (e.target.value === "all") {
+    //   setSelectedTopic(undefined)
+    // } else {
+      setSelectedTopic(e.target.value)  
+    // }
     }
   
-    
     return (
 
 <form className="topic-dropdown">
@@ -54,7 +35,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
 
           {topicsOptions.map((topic) => {
             return (
-              <option type="reset" value={`${topic.slug}`}>
+              <option type="reset" key={`${topic.slug}`} value={`${topic.slug}`}>
                 {topic.slug}
               </option>
             );

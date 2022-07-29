@@ -5,7 +5,7 @@ import { UserContext } from "../Contexts/UserContext";
 
 const Nav= () => {
    const {user, setUser} = useContext(UserContext);
-   console.log(user, "<<<< user in nav");
+
 
   function handleLogout(){
    setUser("")
