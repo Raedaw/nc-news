@@ -10,7 +10,7 @@ const Articles = () => {
     const [selectedTopic, setSelectedTopic] = useState(undefined);
     const [selectedSort, setSelectedSort] = useState("created_at")
     const [selectedOrder, setSelectedOrder] = useState("DESC")
-    
+
      let [searchParams, setSearchParams] = useSearchParams();
 
 const params ={
@@ -20,7 +20,10 @@ const params ={
 }
 let navigate = useNavigate();
 
- const goToArticles = ()=> navigate({pathname: '/articles', search: `?${createSearchParams(params)}`})
+ const goToArticles = ()=> {
+    if (params.topic === "all" || params.topic === "null" || params.topic === undefined) delete params.topic;
+    navigate({pathname: '/articles', search: `?${createSearchParams(params)}`})
+ } 
     
 // points to consider:
 // - altering dropdown boxes based on url searchParams

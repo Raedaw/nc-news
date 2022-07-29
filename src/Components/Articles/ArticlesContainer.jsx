@@ -16,7 +16,7 @@ useEffect(()=>{
 
 setArticles([])
 console.log({params})
-if (params.topic === "all" || params.topic === "null") params.topic = undefined;
+if (params.topic === "all" || params.topic === "null" || params.topic === undefined) delete params.topic;
     getArticles(params).then((articles)=>{
         setErrorMessage(undefined);
         setIsLoading(false);
