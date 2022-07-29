@@ -1,17 +1,10 @@
-//import Select from "@mui/material";
-import axios from "axios";
 import { useEffect, useState } from "react";
-// import DropdownButton from 'react-bootstrap/DropdownButton';
-// import Dropdown from 'react-bootstrap/Dropdown';
-import { useNavigate } from "react-router-dom";
 import { getTopics } from "../utils/apiPaths";
-
 const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
     
-    const [topicsOptions, setTopicsOptions] = useState([]); 
-
-     
-    useEffect(() => {
+  const [topicsOptions, setTopicsOptions] = useState([]); 
+ //get options for the topics dropdown:
+    useEffect(() => { 
         getTopics().then((topics) => {
            setTopicsOptions(topics);
         });
@@ -19,17 +12,13 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
   
     
   function handleChange(e){
-    console.log(e.target.value)
-    if (e.target.value === "all"){
-      setSelectedTopic("")
-    } else {
-       setSelectedTopic(e.target.value)
-    console.log(selectedTopic, "<<<<<<selected topic") //logging empty
-    }
-   
+    // if (e.target.value === "all") {
+    //   setSelectedTopic(undefined)
+    // } else {
+      setSelectedTopic(e.target.value)  
+    // }
     }
   
-    
     return (
 
 <form className="topic-dropdown">
@@ -42,7 +31,7 @@ const TopicsDropdown = ({selectedTopic, setSelectedTopic}) => {
           onChange={handleChange}
           value={selectedTopic}
         >
-          <option value="all">all</option>
+          <option>all</option>
 
           {topicsOptions.map((topic) => {
             return (

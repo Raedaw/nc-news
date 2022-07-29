@@ -1,18 +1,12 @@
-
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-
-
-const SortByDropdown = ({selectedSort, setSelectedSort, selectedOrder, setSelectedOrder, selectedTopic}) => {
+const SortByDropdown = ({selectedSort, setSelectedSort, selectedOrder, setSelectedOrder}) => {
 
   function handleChange(e) {
-        setSelectedSort(e.target.value)
+    const [sort_by, order] = e.target.value.split(" ")
+
+        setSelectedSort(sort_by)
+        setSelectedOrder(order)
         }
-  function handleOrder(e){
-    setSelectedOrder(e.target.value)
-  }
-    
+  
     return (
     <section>
    <form className="sortBy-dropdown">
@@ -23,17 +17,16 @@ const SortByDropdown = ({selectedSort, setSelectedSort, selectedOrder, setSelect
           id="sortBys"
           className="dropdown_box"
           onChange={handleChange}
-          value={selectedSort}
+          value={`${selectedSort} ${selectedOrder}`}
         >
-          <option value="created_at">Created at</option>
-          <option value="votes">Votes</option>
-          <option value="comment_count">Comments</option>
+          <option value="created_at DESC">Newest</option>
+          <option value="created_at ASC">Oldest</option>
+          <option value="votes DESC">Votes</option>
+          <option value="comment_count DESC">Comments</option>
         </select>
       </label>
     </form> 
-    <form className="order-by" onClick={handleOrder} value={selectedOrder}></form>
-    <button value="DESC">↓</button>  
-    <button value="ASC">↑</button>  
+
     </section>
 
 

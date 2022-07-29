@@ -5,7 +5,7 @@ export const path = axios.create({
 })
 
 export const getArticles = (params) => {
-    return path.get(`/articles`, {params})
+    return path.get(`/articles`, {params: {topic: params.topic, sort_by: params.sort_by, order: params.order}})
     .then(({data}) => {
         return data.articles
     })

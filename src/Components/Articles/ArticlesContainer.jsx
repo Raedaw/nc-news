@@ -16,8 +16,7 @@ useEffect(()=>{
 
 setArticles([])
 console.log({params})
-
-    // axios.get(`https://rachels-nc-notes.herokuapp.com/api/articles`, {params})
+if (params.topic === "all" || params.topic === "null") params.topic = undefined;
     getArticles(params).then((articles)=>{
         setErrorMessage(undefined);
         setIsLoading(false);
