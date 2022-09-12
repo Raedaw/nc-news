@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../../styles/SingleArticle.module.css";
 import CommentsSection from "../Comments/CommentsSection";
-import AddComment from "../Comments/AddComment";
+//import AddComment from "../Comments/AddComment";
 import Votes from "../Votes";
 
 
