@@ -16,7 +16,7 @@ const [errorMessageAddComment, setErrorMessageAddComment] = useState(undefined);
 const [errorMessageDeleteComment, setErrorMessageDeleteComment] = useState(undefined);
 const [commentToAdd, setCommentToAdd] = useState({})
 const {user} = useContext(UserContext);
-const [deletingMessage, setDeletingMessage] = useState(undefined)
+const [deletingMessage, setDeletingMessage] = useState(false)
 
 
 useEffect(()=>{
@@ -31,7 +31,7 @@ useEffect(()=>{
         setErrorMessage(err.response.data.msg)
         console.log(err)
     })
-}, [article_id])
+}, [article_id, deletingMessage])
 
 function handleSubmit(e){
     e.preventDefault();
@@ -59,9 +59,12 @@ function handleChange(propName, value){
 }
 
 function handleDelete(comment_id) {
+    setDeletingMessage(true)
     axios.delete(`https://rachels-nc-notes.herokuapp.com/api/comments/${comment_id}`).catch((err)=>{
         setErrorMessageDeleteComment(err)
-        
+        setTimeout(() => {
+            setDeletingMessage(false)
+        }, 2000)
     })
 }
 
